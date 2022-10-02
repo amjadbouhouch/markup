@@ -3,7 +3,8 @@
     */
 
 .ProseMirror {
-  min-height: 100px;
+  @apply prose;
+  /* min-height: 100px; */
 }
 .ProseMirror:focus-visible {
   outline: none;
@@ -61,10 +62,10 @@
   line-height: 1.1;
 }
 .ProseMirror h1 {
-  @apply text-2xl;
+  /* @apply text-2xl; */
 }
 .ProseMirror h2 {
-  @apply text-xl;
+  /* @apply text-xl; */
 }
 .ProseMirror p {
   margin: 0.8em 0;
