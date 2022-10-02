@@ -10,6 +10,10 @@ module.exports = {
     'react/require-default-props': 'warn',
     '@typescript-eslint/no-shadow': 'warn',
     'jsx-a11y/label-has-associated-control': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'tjsx-a11y/click-events-have-key-events': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -46,6 +46,7 @@ const TipTapEditor = ({ page }: TipTapEditorProps) => {
       ],
       content,
       onUpdate({ editor, transaction }) {
+        console.log(editor.getJSON(), transaction);
         setContent(editor.getHTML());
       },
       autofocus: true,

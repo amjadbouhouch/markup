@@ -1,14 +1,14 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react';
+
 const ThemeChanger = () => {
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true)
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true);
   const toggleDarkMode = () => {
-    const prevTheme = isDarkModeEnabled ? 'dark' : 'light'
+    const prevTheme = isDarkModeEnabled ? 'forest' : 'light';
     document
       .getElementsByTagName('html')[0]
-      .setAttribute('data-theme', prevTheme === 'dark' ? 'light' : 'dark')
-    setIsDarkModeEnabled((prev) => !prev)
-  }
+      .setAttribute('data-theme', prevTheme === 'forest' ? 'light' : 'forest');
+    setIsDarkModeEnabled((prev) => !prev);
+  };
   return (
     <div className="form-control">
       <label className="cursor-pointer label">
@@ -21,7 +21,7 @@ const ThemeChanger = () => {
         />
       </label>
     </div>
-  )
-}
+  );
+};
 
-export default ThemeChanger
+export default ThemeChanger;

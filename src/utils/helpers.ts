@@ -1,4 +1,7 @@
 import { Editor } from '@tiptap/react';
+import toast from 'react-hot-toast';
+
+export const makeToast = toast;
 
 export function setLink(editor: Editor, url: any) {
   // cancelled

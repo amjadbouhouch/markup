@@ -2,8 +2,13 @@ import Dexie, { Table } from 'dexie';
 
 export interface Page {
   id?: number;
-  name: string;
+  title: string;
   content: string;
+  cover?: string;
+  parentId?: number | null;
+  isDeleted?: boolean;
+  isFavorite?: boolean;
+  icon?: string;
 }
 
 export default class DataBase extends Dexie {
@@ -13,8 +18,9 @@ export default class DataBase extends Dexie {
 
   constructor() {
     super('markup');
-    this.version(1).stores({
-      pages: '++id, name, content', // Primary key and indexed props
+    this.version(7).stores({
+      pages:
+        '++id, title, content, parentId, cover, isDeleted, isFavorite, icon', // Primary key and indexed props
     });
   }
 }

@@ -1,9 +1,16 @@
 import { FaPlus } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ThemeChanger from 'renderer/components/themes/ThemeChanger';
+import dbService from 'renderer/database/dbService';
 import PagesItems from './PagesItems';
 
 const SideBar = () => {
+  const navigate = useNavigate();
+  const createNewPage = async () => {
+    const pageId = await dbService.createPage('');
+    navigate(`${pageId.toString()}`);
+  };
+
   return (
     <div className="shrink-0 drawer-side">
       <label htmlFor="my-drawer-2" className="drawer-overlay" />
@@ -14,14 +21,13 @@ const SideBar = () => {
               Markup
             </Link>
 
-            <a
-              href="#add-page-modal"
+            <button
               type="button"
-              // onClick={() => {}}
+              onClick={createNewPage}
               className="btn btn-square btn-ghost"
             >
               <FaPlus className="w-5 h-5" />
-            </a>
+            </button>
           </div>
           <PagesItems />
         </div>
