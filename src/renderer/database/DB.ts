@@ -1,5 +1,7 @@
 import Dexie, { Table } from 'dexie';
-
+/**
+ * https://dexie.org/docs/Tutorial/React
+ */
 export interface Page {
   id?: number;
   title: string;

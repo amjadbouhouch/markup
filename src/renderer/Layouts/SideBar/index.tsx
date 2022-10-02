@@ -13,7 +13,7 @@ const SideBar = () => {
 
   return (
     <div className="shrink-0 drawer-side">
-      <label htmlFor="my-drawer-2" className="drawer-overlay" />
+      <label htmlFor="drawer" className="drawer-overlay" />
       <ul className="p-2 overflow-y-auto border-r w-80 border-base-300 menu bg-base-100 text-base-content">
         <div className="flex-1">
           <div className="flex items-center justify-between">

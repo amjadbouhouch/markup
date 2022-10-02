@@ -1,4 +1,4 @@
-import { FaRegStar, FaStar, FaTrashAlt } from 'react-icons/fa';
+import { FaRegEye, FaRegStar, FaStar, FaTrashAlt } from 'react-icons/fa';
 import { FcHome } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
 import { Page } from 'renderer/database/DB';
@@ -18,13 +18,14 @@ const PageHeader = ({ page }: PageHeaderProps) => {
       navigation(-1);
     } catch (error) {}
   };
+  const togglePreviewModel = () => {
+    // todo
+  };
+
   return (
     <div className="border-b navbar bg-base-100 border-base-200">
       <div className="flex-none">
-        <label
-          htmlFor="my-drawer-2"
-          className="lg:hidden btn btn-square btn-ghost"
-        >
+        <label htmlFor="drawer" className="lg:hidden btn btn-square btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,6 +55,13 @@ const PageHeader = ({ page }: PageHeaderProps) => {
         </div>
       </div>
       <div>
+        <button
+          onClick={togglePreviewModel}
+          type="button"
+          className="btn btn-circle btn-ghost"
+        >
+          <FaRegEye />
+        </button>
         <button
           onClick={toggleFavorite}
           type="button"

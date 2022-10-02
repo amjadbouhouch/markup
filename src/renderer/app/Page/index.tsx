@@ -22,10 +22,10 @@ const Page = () => {
       key={`page_${page.id}`}
     >
       <PageHeader page={page} />
-      <div className="h-full space-y-6 overflow-auto">
+      <div className="container h-full space-y-6 overflow-auto">
         <PageBanner page={page} />
         <PageTitle page={page} />
-        <div className="ml-4">
+        <div className="px-8">
           <TipTapEditor key={page.id} page={page} />
         </div>
       </div>

@@ -31,7 +31,7 @@ function App() {
   }, []);
   return (
     <>
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <input id="drawer" type="checkbox" className="drawer-toggle" />
       <div className="flex flex-col w-full h-screen overflow-hidden grow drawer-content">
         <div className="flex h-full overflow-auto">
           {/* content */}

@@ -30,7 +30,7 @@ const PageBanner = ({ page }: PageBannerProps) => {
       <button
         onClick={toggle}
         type="button"
-        className="absolute text-lg -bottom-4 left-5 btn btn-square"
+        className="absolute text-lg -bottom-6 left-5 btn btn-square"
       >
         {page.icon || '🏠'}
       </button>

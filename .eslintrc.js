@@ -12,8 +12,12 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
-    'tjsx-a11y/click-events-have-key-events': 'off',
     '@typescript-eslint/no-unused-expressions': 'off',
+    'react/button-has-type': 'off',
+    'react/no-array-index-key': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
