@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import './app.css';
 import Page from './app/Page';
+import SearchModal from './components/SearchModal';
 import SideBar from './Layouts/SideBar';
 
 export default function AppWrapper() {
@@ -38,6 +39,7 @@ function App() {
           <Routes>
             <Route path="/:pageId" element={<Page />} />
           </Routes>
+          <SearchModal />
         </div>
       </div>
       <SideBar />

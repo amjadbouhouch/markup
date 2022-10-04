@@ -3,8 +3,7 @@
     */
 
 .ProseMirror {
-  @apply prose;
-  /* min-height: 100px; */
+  @apply prose-sm prose prose-stone lg:prose dark:prose-invert;
 }
 .ProseMirror:focus-visible {
   outline: none;

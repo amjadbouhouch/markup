@@ -18,14 +18,15 @@ const Page = () => {
 
   return (
     <div
-      className="flex flex-col w-full h-full overflow-hidden"
+      className="flex flex-col w-full h-full mx-auto overflow-hidden"
       key={`page_${page.id}`}
     >
       <PageHeader page={page} />
-      <div className="container h-full space-y-6 overflow-auto">
+      <div className="container flex flex-col flex-1 w-full h-full mx-auto space-y-6 overflow-auto">
         <PageBanner page={page} />
         <PageTitle page={page} />
-        <div className="px-8">
+        {/* mx-auto */}
+        <div className="px-8 pb-40">
           <TipTapEditor key={page.id} page={page} />
         </div>
       </div>

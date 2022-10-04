@@ -43,33 +43,20 @@ export const CommandsTrigger = Node.create<CommandsTriggerOptions>({
         pluginKey: commandsTriggerKey,
         command: ({ editor, range, props }) => {
           const { value } = props;
-          // const { nodeAfter } = editor.view.state.selection.$to;
           // const overrideSpace = nodeAfter?.text?.startsWith(' ');
 
           // if (overrideSpace) {
           //   range.to += 1;
           // }
 
+          editor.commands.deleteRange(range);
           if (value === 'H1') editor.commands.setHeading({ level: 1 });
           else if (value === 'H2') editor.commands.setHeading({ level: 2 });
-          else if (value === 'Paragraph') editor.commands.setParagraph();
-
-          // editor.chain().focus().setBlockquote();
-          // editor
-          //   .chain()
-          //   .focus()
-          //   .insertContentAt(range, [
-          //     {
-          //       type: this.name,
-          //       attrs: props,
-          //     },
-          //     {
-          //       type: 'text',
-          //       text: ' ',
-          //     },
-          //   ])
-          //   .run();
-          window.getSelection()?.collapseToEnd();
+          else if (value === 'Paragraph') {
+            editor.commands.setParagraph();
+            // editor.commands.setNode('paragraph', {});
+          }
+          // window.getSelection()?.collapseToEnd();
         },
         allow: ({ state, range }) => {
           const $from = state.doc.resolve(range.from);

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 
 const ThemeChanger = () => {
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true);
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState<
+    'forest' | 'light'
+  >(() => {
+    const prevTheme = localStorage.getItem('theme');
+    return prevTheme || 'forest';
+  });
   const toggleDarkMode = () => {
-    const prevTheme = isDarkModeEnabled ? 'forest' : 'light';
+    const newTheme = isDarkModeEnabled === 'forest' ? 'light' : 'forest';
+    localStorage.setItem('theme', newTheme);
     document
       .getElementsByTagName('html')[0]
-      .setAttribute('data-theme', prevTheme === 'forest' ? 'light' : 'forest');
-    setIsDarkModeEnabled((prev) => !prev);
+      .setAttribute('data-theme', newTheme);
+    setIsDarkModeEnabled(newTheme);
   };
   return (
     <div className="form-control">
@@ -16,7 +22,7 @@ const ThemeChanger = () => {
         <input
           type="checkbox"
           className="toggle toggle-secondary"
-          checked={isDarkModeEnabled}
+          checked={isDarkModeEnabled === 'forest'}
           onChange={toggleDarkMode}
         />
       </label>

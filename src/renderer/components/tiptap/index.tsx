@@ -46,11 +46,19 @@ const TipTapEditor = ({ page }: TipTapEditorProps) => {
         }),
         Color,
         TextStyle,
-        Highlight.configure({ multicolor: true }),
+        Highlight.configure({ multicolor: false }),
         Placeholder.configure({
-          placeholder: `Type / for commands`,
+          // placeholder: ``,
           showOnlyWhenEditable: true,
-          emptyNodeClass: 'text-base-300',
+          emptyEditorClass: 'is-editor-empty',
+          emptyNodeClass: 'my-custom-is-empty-class',
+          includeChildren: true,
+          placeholder: ({ node }) => {
+            // if (node.type.name === 'heading') {
+            //   return 'What’s the title?';
+            // }
+            return 'Type / for commands';
+          },
         }),
         Typography,
         BubbleMenu.configure({
@@ -72,23 +80,33 @@ const TipTapEditor = ({ page }: TipTapEditorProps) => {
       ],
       content,
       onUpdate({ editor, transaction }) {
-        console.log(editor.getJSON(), transaction);
         setContent(editor.getHTML());
       },
       autofocus: true,
     },
     [id]
   );
+  const onMouseDown = () => {
+    if (editor && !editor.isFocused) {
+      editor.chain().focus();
+    }
+  };
   useEffect(() => {
     // return () => {
     //   dbService.updatePageContent(id!, newContent);
     // };
   }, []);
   return (
-    <>
+    <div
+      onMouseDown={onMouseDown}
+      style={{
+        minHeight: 250,
+      }}
+      className="flex flex-1 cursor-text"
+    >
       {editor && <Menu editor={editor} />}
       <EditorContent editor={editor} />
-    </>
+    </div>
   );
 };
 
