@@ -32,10 +32,11 @@
     "test": "jest",
     "release": "standard-version",
     "release:first": "standard-version -- --first-release",
-    "release:pre": "standard-version -- --prerelease",
-    "release:major": "standard-version --release-as major -t v",
-    "release:minor": "standard-version --release-as minor -t v",
-    "release:patch": "standard-version --release-as patch -t v"
+    "release:pre-alpha": "standard-version -- --prerelease alpha",
+    "release:pre-beta": "standard-version -- --prerelease beta",
+    "release:major": "standard-version --release-as major",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
