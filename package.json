@@ -1,6 +1,7 @@
 {
   "description": "Markdown editor with tiptap plugins and more",
   "homepage": "https://github.com/amjadbouhouch/markup",
+  "version": "0.0.1",
   "bugs": {
     "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
   },
@@ -28,7 +29,13 @@
     "start:main": "cross-env NODE_ENV=development electronmon -r ts-node/register/transpile-only .",
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
-    "test": "jest"
+    "test": "jest",
+    "release": "standard-version",
+    "release:first": "standard-version -- --first-release",
+    "release:pre": "standard-version -- --prerelease",
+    "release:major": "standard-version --release-as major -t v",
+    "release:minor": "standard-version --release-as minor -t v",
+    "release:patch": "standard-version --release-as patch -t v"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -192,6 +199,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.54.4",
     "sass-loader": "^13.0.2",
+    "standard-version": "^9.5.0",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.1.8",
     "terser-webpack-plugin": "^5.3.5",
@@ -266,12 +274,9 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "markup",
+      "repo": "markup"
     }
-  },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
   "devEngines": {
     "node": ">=14.x",
