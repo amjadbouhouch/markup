@@ -1,7 +1,7 @@
 {
   "description": "Markdown editor with tiptap plugins and more",
   "homepage": "https://github.com/amjadbouhouch/markup",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "bugs": {
     "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
   },
@@ -31,12 +31,12 @@
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
     "release": "standard-version",
-    "release:first": "standard-version -- --first-release",
-    "release:pre-alpha": "standard-version -- --prerelease alpha",
-    "release:pre-beta": "standard-version -- --prerelease beta",
-    "release:major": "standard-version --release-as major",
-    "release:minor": "standard-version --release-as minor",
-    "release:patch": "standard-version --release-as patch"
+    "release:first": "npm run release -- --first-release",
+    "release:pre-alpha": "npm run release -- --prerelease alpha",
+    "release:pre-beta": "npm run release -- --prerelease beta",
+    "release:major": "npm run release --release-as major",
+    "release:minor": "npm run release --release-as minor",
+    "release:patch": "npm run release --release-as patch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
