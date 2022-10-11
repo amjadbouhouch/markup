@@ -1,28 +1,27 @@
-import Dexie, { Table } from 'dexie';
+import PouchDB from 'pouchdb';
+import pouchdbFind from 'pouchdb-find';
+
+PouchDB.plugin(pouchdbFind);
 /**
  * https://dexie.org/docs/Tutorial/React
  */
-export interface Page {
-  id?: number;
+export interface IBlock {
+  _id: string;
   title: string;
-  content: string;
   cover?: string;
-  parentId?: number | null;
+  parentId?: string | null;
   isDeleted?: boolean;
   isFavorite?: boolean;
   icon?: string;
 }
 
-export default class DataBase extends Dexie {
+export default class DataBase {
   // 'friends' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
-  pages!: Table<Page>;
+  // blocks!: Table<IBlock, string>;
+  blocks = new PouchDB<IBlock>('blocks');
 
   constructor() {
-    super('markup');
-    this.version(7).stores({
-      pages:
-        '++id, title, content, parentId, cover, isDeleted, isFavorite, icon', // Primary key and indexed props
-    });
+    this.blocks.info().then(console.info);
   }
 }

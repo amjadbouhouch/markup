@@ -1,3 +1,4 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import {
@@ -8,25 +9,28 @@ import {
 } from 'react-router-dom';
 import './app.css';
 import Page from './app/Page';
-import SearchModal from './components/SearchModal';
+import { queryClientManager } from './database/queryClientManager';
 import SideBar from './Layouts/SideBar';
 
 export default function AppWrapper() {
   return (
-    <Router>
-      <div className="w-screen overflow-hidden drawer drawer-mobile">
-        <App />
-      </div>
-      <Toaster />
-    </Router>
+    <QueryClientProvider client={queryClientManager.queryClient}>
+      <Router>
+        <div className="w-screen overflow-hidden drawer drawer-mobile">
+          <App />
+        </div>
+        <Toaster />
+      </Router>
+    </QueryClientProvider>
   );
 }
 function App() {
   const navigation = useNavigate();
+
   useEffect(() => {
     const id = localStorage.getItem('lastPageSeen');
     if (id) {
-      navigation(`${id}`);
+      navigation(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -37,9 +41,9 @@ function App() {
         <div className="flex h-full overflow-auto">
           {/* content */}
           <Routes>
-            <Route path="/:pageId" element={<Page />} />
+            <Route path="/:blockId" element={<Page />} />
           </Routes>
-          <SearchModal />
+          {/* <SearchModal /> */}
         </div>
       </div>
       <SideBar />

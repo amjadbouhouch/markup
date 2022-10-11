@@ -14,27 +14,27 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
-import { Page } from 'renderer/database/DB';
-import dbService from 'renderer/database/dbService';
+import { IBlock } from 'renderer/database/DB';
 import useDebouncedState from 'renderer/hooks/useDebouceState';
 import Menu from './BubbleMenu';
 import { CodeBlock, lowlight } from './CodeBlock';
 import { CommandsTrigger } from './commandsList/index';
 import './stype.css';
+import { BlockId } from './uniqueId/index';
 
 interface TipTapEditorProps {
-  page: Page;
+  blocks: IBlock[];
+  page: IBlock;
 }
 //
 const ONE_SECONDS = 1000;
 
-const TipTapEditor = ({ page }: TipTapEditorProps) => {
-  const { content = '', id } = page;
-  const [_, setContent] = useDebouncedState(content, ONE_SECONDS, {
+const TipTapEditor = ({ blocks = [], page }: TipTapEditorProps) => {
+  const [_, setContent] = useDebouncedState(blocks, ONE_SECONDS, {
     leading: false,
     onUpdate(newVal) {
       // TODO improve just a test
-      dbService.updatePageContent(id!, newVal);
+      // dbService.updatePageContent(id!, newVal);
     },
   });
   const editor = useEditor(
@@ -77,15 +77,25 @@ const TipTapEditor = ({ page }: TipTapEditorProps) => {
         TableHeader,
         TableCell,
         CommandsTrigger,
+        // BlockId,
       ],
-      content,
-      onUpdate({ editor, transaction }) {
-        setContent(editor.getHTML());
-      },
+      content: undefined,
+      // onUpdate({ editor, transaction }) {
+      //   const output = editor.getJSON();
+      //   console.log(output);
+
+      //   // setContent(editor.getHTML());
+      // },
       autofocus: true,
     },
-    [id]
+    [page._id]
   );
+  useEffect(() => {
+    if (blocks.length === 0 && editor) {
+      editor.commands.clearContent();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocks]);
   const onMouseDown = () => {
     if (editor && !editor.isFocused) {
       editor.chain().focus();

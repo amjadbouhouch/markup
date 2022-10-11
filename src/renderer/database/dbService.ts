@@ -1,8 +1,7 @@
 import { IndexableType } from 'dexie';
+import { generateBlockId } from '../../utils/helpers';
 import DataBase from './DB';
-/**
- * https://dexie.org/docs/Tutorial/React
- */
+
 class DbService {
   private db: DataBase;
 
@@ -10,59 +9,69 @@ class DbService {
     this.db = new DataBase();
   }
 
-  findPages() {
-    return this.db.pages.toArray();
+  async list(parentId: string | null = null) {
+    const response = await this.db.blocks.find({
+      selector: {
+        parentId,
+      },
+    });
+    console.warn(response.warning);
+    return response.docs;
   }
 
-  createPage(title: string, parentId = null) {
-    console.info(`Create new Page with [title]= ${title}`);
-    return this.db.pages.add({
-      content: '',
+  async create(title: string, parentId = null) {
+    const _id = generateBlockId();
+    const block = await this.db.blocks.put({
       title,
+      _id,
       parentId,
       isDeleted: false,
       isFavorite: false,
     });
+    return block.id;
   }
 
-  getPageById(id: IndexableType) {
+  async retrieve(id: string) {
     console.info(`get page by [id]= ${id}`);
-    return this.db.pages.get(id);
+    return this.db.blocks.get(id);
   }
 
-  updatePageContent(id: number, content = '') {
+  update(id: number, content = '') {
     console.info(`updatePageContent [id]= ${id}`);
-    return this.db.pages.update(id, {
-      content,
-    });
+    // return this.db.blocks.update(id, {
+    //   content,
+    // });
   }
 
   updatePageTitle(id: number, title: string) {
     console.info(`updatePageTitle [id]= ${id}, newTitle=${title}`);
-    return this.db.pages.update(id, {
-      title,
-    });
+    // return this.db.blocks.update(id, {
+    //   title,
+    // });
   }
 
   async toggleFavorite(id: IndexableType) {
     console.info(`toggleFavorite [id]= ${id}`);
-    const page = await this.getPageById(id);
-    const isFavorite = !!page.isFavorite;
-    this.db.pages.update(page!.id, {
-      isFavorite: !isFavorite,
-    });
+    // const page = await this.getPageById(id);
+    // if (!page) {
+    //   return;
+    // }
+    // const isFavorite = Boolean(page?.isFavorite);
+    // this.db.blocks.update(page!.id, {
+    //   isFavorite: !isFavorite,
+    // });
   }
 
   updatePageIcon(id: IndexableType, icon: string) {
     console.info(`updatePageIcon [id]=${id} & new Icon=${icon}`);
-    return this.db.pages.update(id, {
-      icon,
-    });
+    // return this.db.blocks.update(id, {
+    //   icon,
+    // });
   }
 
   remove(id: IndexableType) {
     console.info(`removing [id]=${id}`);
-    return this.db.pages.delete(id);
+    // return this.db.blocks.delete(id);
   }
 }
 

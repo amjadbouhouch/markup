@@ -7,8 +7,8 @@ import PagesItems from './PagesItems';
 const SideBar = () => {
   const navigate = useNavigate();
   const createNewPage = async () => {
-    const pageId = await dbService.createPage('');
-    navigate(`${pageId.toString()}`);
+    const blockId = await dbService.create('');
+    navigate(blockId);
   };
 
   return (

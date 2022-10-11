@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import EmojiPicker from 'renderer/components/EmojiPicker';
-import { Page } from 'renderer/database/DB';
+import { IBlock } from 'renderer/database/DB';
 import dbService from 'renderer/database/dbService';
 
 interface PageBannerProps {
-  page: Page;
+  page: IBlock;
 }
 const PageBanner = ({ page }: PageBannerProps) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const toggle = () => setShowEmojiPicker((prev) => !prev);
   const onIconChange = (icon: any) => {
     toggle();
-    dbService.updatePageIcon(page.id as number, icon.native);
+    dbService.updatePageIcon(page._id, icon.native);
   };
 
   return (

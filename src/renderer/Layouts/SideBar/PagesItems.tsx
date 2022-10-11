@@ -1,13 +1,11 @@
-import { useLiveQuery } from 'dexie-react-hooks';
+import { useQuery } from '@tanstack/react-query';
 import { NavLink } from 'react-router-dom';
-import { Page } from 'renderer/database/DB';
+import { IBlock } from 'renderer/database/DB';
 import dbService from 'renderer/database/dbService';
 
 const PagesItems = () => {
-  const pages = useLiveQuery(() => dbService.findPages(), []);
-  if (!pages) {
-    return null;
-  }
+  // const pages: any[] = [];
+  const { data: pages = [] } = useQuery(['pages'], () => dbService.list());
   const favorites = pages?.filter((p) => p.isFavorite);
   const others = pages?.filter((p) => !p.isFavorite);
   const withFavorites = favorites?.length > 0;
@@ -19,7 +17,7 @@ const PagesItems = () => {
             <span>Favorites</span>
           </li>
           {favorites?.map((page) => (
-            <PageLinkItem key={page.id} page={page} />
+            <PageLinkItem key={page._id} page={page} />
           ))}
         </>
       )}
@@ -27,15 +25,15 @@ const PagesItems = () => {
         <span>Pages</span>
       </li>
       {others?.map((page) => (
-        <PageLinkItem key={page.id} page={page} />
+        <PageLinkItem key={page._id} page={page} />
       ))}
     </div>
   );
 };
-const PageLinkItem = ({ page }: { page: Page }) => {
+const PageLinkItem = ({ page }: { page: IBlock }) => {
   return (
     <li>
-      <NavLink style={{ textDecoration: 'none' }} to={`/${page.id}`}>
+      <NavLink style={{ textDecoration: 'none' }} to={`/${page._id}`}>
         {page?.icon && <span>{page?.icon}</span>}
         <span>{page.title || 'Untitled'}</span>
       </NavLink>
