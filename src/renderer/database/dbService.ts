@@ -31,26 +31,35 @@ class DbService {
     return block.id;
   }
 
-  async retrieve(id: string) {
+  retrieve(id: string) {
     console.info(`get page by [id]= ${id}`);
-    return this.db.blocks.get(id);
+    return this.db.blocks.get(id, {
+      revs_info: true,
+    });
   }
 
-  update(id: number, content = '') {
+  async update(id: number, content = '') {
     console.info(`updatePageContent [id]= ${id}`);
-    // return this.db.blocks.update(id, {
-    //   content,
-    // });
   }
 
-  updatePageTitle(id: number, title: string) {
-    console.info(`updatePageTitle [id]= ${id}, newTitle=${title}`);
+  async updatePageTitle(_id: string, title: string) {
+    console.info(`updatePageTitle [id]= ${_id}, newTitle=${title}`);
     // return this.db.blocks.update(id, {
     //   title,
     // });
+    try {
+      const { _rev } = await this.retrieve(_id);
+      await this.db.blocks.put({
+        _id,
+        title,
+        _rev,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  async toggleFavorite(id: IndexableType) {
+  async toggleFavorite(id: string) {
     console.info(`toggleFavorite [id]= ${id}`);
     // const page = await this.getPageById(id);
     // if (!page) {

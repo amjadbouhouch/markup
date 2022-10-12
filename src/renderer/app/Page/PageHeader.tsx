@@ -1,22 +1,24 @@
 import { FaRegEye, FaRegStar, FaStar, FaTrashAlt } from 'react-icons/fa';
 import { FcHome } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
-import { Page } from 'renderer/database/DB';
+import { IBlock } from 'renderer/database/DB';
 import dbService from 'renderer/database/dbService';
 import { makeToast } from 'utils/helpers';
 
 interface PageHeaderProps {
-  page: Page;
+  block: IBlock;
 }
-const PageHeader = ({ page }: PageHeaderProps) => {
+const PageHeader = ({ block }: PageHeaderProps) => {
   const navigation = useNavigate();
-  const toggleFavorite = () => dbService.toggleFavorite(page.id as number);
+  const toggleFavorite = () => dbService.toggleFavorite(block._id);
   const remove = async () => {
     try {
-      await dbService.remove(page.id as number);
+      await dbService.remove(block._id);
       makeToast.success('Page deleted Successfully!');
       navigation(-1);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   const togglePreviewModel = () => {
     // todo
@@ -48,8 +50,8 @@ const PageHeader = ({ page }: PageHeaderProps) => {
               <FcHome className="w-5 h-5" />
             </li>
             <li className="flex items-center space-x-2">
-              {page?.icon && <span>{page?.icon}</span>}
-              <span>{page?.title || 'Untitled'}</span>
+              {block?.icon && <span>{block?.icon}</span>}
+              <span>{block?.title || 'Untitled'}</span>
             </li>
           </ul>
         </div>
@@ -67,7 +69,7 @@ const PageHeader = ({ page }: PageHeaderProps) => {
           type="button"
           className="btn btn-circle btn-ghost"
         >
-          {page.isFavorite ? (
+          {block.isFavorite ? (
             <FaStar className="w-5 h-5 text-yellow-500" />
           ) : (
             <FaRegStar className="w-5 h-5" />

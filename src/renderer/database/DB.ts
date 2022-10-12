@@ -1,5 +1,6 @@
 import PouchDB from 'pouchdb';
 import pouchdbFind from 'pouchdb-find';
+import { notify } from './pubsub';
 
 PouchDB.plugin(pouchdbFind);
 /**
@@ -14,14 +15,40 @@ export interface IBlock {
   isFavorite?: boolean;
   icon?: string;
 }
+export type DocsCallback<T> = (
+  deleted: boolean,
+  id: PouchDB.Core.DocumentId,
+  doc?: PouchDB.Core.Document<T>
+) => void;
 
 export default class DataBase {
-  // 'friends' is added by dexie when declaring the stores()
-  // We just tell the typing system this is the case
-  // blocks!: Table<IBlock, string>;
   blocks = new PouchDB<IBlock>('blocks');
 
   constructor() {
     this.blocks.info().then(console.info);
+    this.blocks
+      .changes({
+        live: true,
+        since: 'now',
+      })
+      .on('change', (change) => this.onDataChanged(change));
+  }
+
+  onDataChanged(change: PouchDB.Core.ChangesResponseChange<IBlock>) {
+    if (change.deleted) {
+      notify({
+        _id: change.id,
+        deleted: true,
+        block: change.doc,
+      });
+    } else {
+      this.blocks.get(change.id).then((doc) => {
+        notify({
+          _id: change.id,
+          deleted: false,
+          block: doc,
+        });
+      });
+    }
   }
 }

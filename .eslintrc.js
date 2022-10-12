@@ -23,6 +23,9 @@ module.exports = {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-redeclare': 'off',
     'class-methods-use-this': 'off',
+    'no-restricted-syntax': 'off',
+    'promise/always-return': 'off',
+    'import/no-cycle': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,
